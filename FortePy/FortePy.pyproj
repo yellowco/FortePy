@@ -6,7 +6,7 @@
     <ProjectGuid>bc32ab61-6c38-40e5-b17c-616336754571</ProjectGuid>
     <ProjectHome>
     </ProjectHome>
-    <StartupFile>test1.py</StartupFile>
+    <StartupFile>tests\test.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -34,7 +34,11 @@
     <Compile Include="Order.py" />
     <Compile Include="Recurrence.py" />
     <Compile Include="RetrospectiveTransaction.py" />
-    <Compile Include="test1.py" />
+    <Compile Include="tests\test.py" />
+    <Compile Include="__init__.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="tests\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
 </Project>

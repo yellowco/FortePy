@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>bc32ab61-6c38-40e5-b17c-616336754571</ProjectGuid>
+    <ProjectHome>
+    </ProjectHome>
+    <StartupFile>test1.py</StartupFile>
+    <SearchPath>
+    </SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <Name>FortePy</Name>
+    <RootNamespace>pyForte</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="AddressVerification.py" />
+    <Compile Include="DriversLicense.py" />
+    <Compile Include="Customer.py" />
+    <Compile Include="Address.py" />
+    <Compile Include="DirectSocketInterface.py" />
+    <Compile Include="CreditCard.py" />
+    <Compile Include="ElectronicFundsTransfer.py" />
+    <Compile Include="Forte.py" />
+    <Compile Include="Order.py" />
+    <Compile Include="Recurrence.py" />
+    <Compile Include="RetrospectiveTransaction.py" />
+    <Compile Include="test1.py" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
+</Project>

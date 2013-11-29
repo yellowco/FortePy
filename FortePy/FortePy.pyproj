@@ -35,7 +35,12 @@
     <Compile Include="AGI\Recurrence.py" />
     <Compile Include="AGI\RetrospectiveTransaction.py" />
     <Compile Include="tests\test.py" />
+    <Compile Include="WebServices\PaymentMethod.py" />
     <Compile Include="WebServices\Client.py" />
+    <Compile Include="WebServices\ClientStatus.py" />
+    <Compile Include="WebServices\CcCardType.py" />
+    <Compile Include="WebServices\EcAccountType.py" />
+    <Compile Include="WebServices\PaymentType.py" />
     <Compile Include="WebServices\test.py" />
     <Compile Include="WebServices\WebService.py" />
     <Compile Include="__init__.py" />

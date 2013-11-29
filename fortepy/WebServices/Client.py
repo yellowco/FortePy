@@ -1,22 +1,13 @@
 import WebService
+import ClientStatus
 
 class Client(WebService.WebService):
-    ACTIVE = None
-    DELETED = None
-    SUSPENDED = None
-
     def __init__(self, id=None):
         if id is not None:
             self.record = Client.find_by_id(id).record
         else:
-            super(Client, self).__init__('https://sandbox.paymentsgateway.net/WS/Client.wsdl')
-            if Client.ACTIVE is None:
-                statuses = self.soap.factory.create('ClientStatus')
-                Client.ACTIVE = statuses['Active']
-                Client.DELETED = statuses['Deleted']
-                Client.SUSPENDED = statuses['Suspended']
-
-            self.record = self.soap.factory.create('ClientRecord')
+            super(Client, self).__init__(WebService.WebService.CLIENT)
+            self.record = self.endpoint.factory.create('ClientRecord')
             self.MerchantID = WebService.WebService.MERCHANT_ID
             self.ClientID = None
             self.FirstName = ""
@@ -43,19 +34,20 @@ class Client(WebService.WebService):
             self.ShiptoCountryCode = ""
             self.ShiptoPhoneNumber = ""
             self.ShiptoFaxNumber = ""
-            self.Status = Client.ACTIVE
+            self.ConsumerID = ""
+            self.Status = ClientStatus.ACTIVE
     
     def save(self):
         if self.ClientID is None:
             self.ClientID = 0
-            self.ClientID = self.soap.service['BasicHttpBinding_IClientService'].createClient(self.authentication, self.record)
+            self.ClientID = self.endpoint.service['BasicHttpBinding_IClientService'].createClient(self.authentication, self.record)
         else:
-            self.ClientID = self.soap.service['BasicHttpBinding_IClientService'].updateClient(self.authentication, self.record)
+            self.ClientID = self.endpoint.service['BasicHttpBinding_IClientService'].updateClient(self.authentication, self.record)
         return self
 
     def delete(self):
         if self.ClientID is not None:
-            result = (self.soap.service['BasicHttpBinding_IClientService'].deleteClient(self.authentication, WebService.WebService.MERCHANT_ID, self.ClientID) == self.ClientID)
+            result = (self.endpoint.service['BasicHttpBinding_IClientService'].deleteClient(self.authentication, WebService.WebService.MERCHANT_ID, self.ClientID) == self.ClientID)
             self.ClientID = None
             return result
 
@@ -63,5 +55,5 @@ class Client(WebService.WebService):
     @staticmethod
     def find_by_id(id):
         client = Client()
-        client.record = client.soap.service['BasicHttpBinding_IClientService'].getClient(client.authentication, WebService.WebService.MERCHANT_ID, id)[0][0]
+        client.record = WebService.WebService.CLIENT.service['BasicHttpBinding_IClientService'].getClient(WebService.WebService.get_authentication(WebService.WebService.CLIENT), WebService.WebService.MERCHANT_ID, id)[0][0]
         return client

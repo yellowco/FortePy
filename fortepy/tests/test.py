@@ -1,8 +1,8 @@
 import unittest
+from ..Forte import Forte
 from ..CreditCard import CreditCard
 from ..DriversLicense import DriversLicense
 from ..Address import Address
-from ..Forte import Forte
 import datetime
 
 class Test(unittest.TestCase):

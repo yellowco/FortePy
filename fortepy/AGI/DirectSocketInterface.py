@@ -2,10 +2,17 @@ import ssl
 import socket
 
 class DirectSocketInterface(object):
-    def __init__(self, hostname='localhost', port=80):
+    AGI_PASSWORD = 'Kqq4QKt35L6'
+    MERCHANT_ID = 160361
+
+    def __init__(self, hostname='www.paymentsgateway.net', port=6050):
         self.socket = ssl.wrap_socket(socket.socket(socket.AF_INET, socket.SOCK_STREAM))
         self.socket.connect((hostname, port))
         
+    def write_header(self):
+        self.socket.write("pg_merchant_id", DirectSocketInterface.MERCHANT_ID)
+        self.socket.write("pg_password", DirectSocketInterface.AGI_PASSWORD)
+
     def write(self, key, value):
         if value is None:
             return False

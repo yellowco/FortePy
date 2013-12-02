@@ -11,12 +11,3 @@ class Recurrence(object):
         self.frequency = frequency
         self.amount = amount
         self.start_date = start_data
-
-    @property
-    def data(self):
-        data = {'pg_schedule_quantity':self.quantity,
-                'pg_schedule_frequency':self.frequency,
-                'pg_schedule_recurring_amount':self.amount}
-        if self.start_date:
-            data['pg_schedule_start_date'] = self.start_date.strftime("%d/%m/%Y")
-        return data

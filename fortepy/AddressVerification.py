@@ -14,6 +14,3 @@ class AddressVerification(object):
     def code(self):
         return "%d%d%d%d%d" % (self.cc_zip, self.cc_street, self.state_zip, self.state_phone, self.email)
     
-    @property
-    def data(self):
-        return {'pg_avs_method':self.code}

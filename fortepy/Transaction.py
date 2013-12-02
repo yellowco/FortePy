@@ -44,6 +44,10 @@ class Transaction(WebService, RetrospectiveTransaction):
         return self.record.WalletID
 
     @staticmethod
+    def save():
+        raise Exception("One does not simply save a transaction.")
+
+    @staticmethod
     def create():
         raise Exception("One does not simply create a transaction.")
 

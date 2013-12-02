@@ -44,7 +44,6 @@ class Client(WebService.WebService):
             self.record.ConsumerID = ""
             self.record.Status = Client.ACTIVE
             self._payment_methods = None # populate later!
-            self._transactions = None # populate later!
             self.ssn = ""
             self.drivers_license = DriversLicense.DriversLicense()
             self.birthdate = None
@@ -61,18 +60,6 @@ class Client(WebService.WebService):
     @email.setter
     def email(self, value):
         self.record.EmailAddress = value
-    @property
-    def phone(self):
-        return self.record.PhoneNumber
-    @phone.setter
-    def phone(self, value):
-        self.record.PhoneNumber = value
-    @property
-    def fax(self):
-        return self.record.FaxNumber
-    @fax.setter
-    def fax(self, value):
-        self.record.FaxNumber = value
     @property
     def consumer_id(self):
         return self.record.ConsumerID
@@ -124,9 +111,7 @@ class Client(WebService.WebService):
         return self._payment_methods
     @property
     def transactions(self):
-        if self._transactions is None:
-            self._transactions = Transaction.find_all_by_client_id(self.id)
-        return self._transactions
+        return Transaction.find_all_by_client_id(self.id)
 
     @staticmethod
     def create(**kwargs):

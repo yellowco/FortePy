@@ -2,9 +2,9 @@ from suds.client import Client
 import time, hmac
 
 class WebService(object):
-    API_LOGIN_ID = '5ot80D7XdD'
-    TRANSACTION_KEY = '1NSa45VrQJk2j5'
-    MERCHANT_ID = 160361
+    API_LOGIN_ID = None
+    TRANSACTION_KEY = None
+    MERCHANT_ID = None
     CLIENT = Client('https://sandbox.paymentsgateway.net/WS/Client.wsdl')
     TRANSACTION = Client('https://sandbox.paymentsgateway.net/WS/Transaction.wsdl')
 

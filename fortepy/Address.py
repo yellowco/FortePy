@@ -1,5 +1,5 @@
 class Address(object):
-    def __init__(self, first_name, last_name, company, street1, street2, city, state, postal, country, phone, fax):
+    def __init__(self, first_name="", last_name="", company="", street1="", street2="", city="", state="", postal="", country="", phone="", fax=""):
         self.company = company
         self.first_name = first_name
         self.last_name = last_name

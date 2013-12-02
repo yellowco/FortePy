@@ -1,12 +1,11 @@
 import unittest
-from ..Forte import Forte
-from ..CreditCard import CreditCard
-from ..DriversLicense import DriversLicense
-from ..Address import Address
+from ..Client import Client
 import datetime
 
 class Test(unittest.TestCase):
     def test_credit_card_sale(self):
+        client = Client.create()
+
         cc = CreditCard.CreditCard(CreditCard.CreditCard.VISA,
                                    "joe bloggs",
                                    4111111111111111,

@@ -23,26 +23,23 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="AGI\AddressVerification.py" />
-    <Compile Include="AGI\DriversLicense.py" />
-    <Compile Include="AGI\Customer.py" />
-    <Compile Include="AGI\Address.py" />
+    <Compile Include="AddressVerification.py" />
+    <Compile Include="DriversLicense.py" />
+    <Compile Include="Address.py" />
     <Compile Include="AGI\DirectSocketInterface.py" />
-    <Compile Include="AGI\CreditCard.py" />
-    <Compile Include="AGI\ElectronicFundsTransfer.py" />
-    <Compile Include="AGI\Forte.py" />
-    <Compile Include="AGI\Order.py" />
-    <Compile Include="AGI\Recurrence.py" />
+    <Compile Include="Order.py" />
+    <Compile Include="Recurrence.py" />
     <Compile Include="AGI\RetrospectiveTransaction.py" />
+    <Compile Include="AGI\__init__.py" />
+    <Compile Include="BankAccount.py" />
+    <Compile Include="CreditCard.py" />
     <Compile Include="tests\test.py" />
+    <Compile Include="Transaction.py" />
     <Compile Include="WebServices\PaymentMethod.py" />
-    <Compile Include="WebServices\Client.py" />
-    <Compile Include="WebServices\ClientStatus.py" />
-    <Compile Include="WebServices\CcCardType.py" />
-    <Compile Include="WebServices\EcAccountType.py" />
-    <Compile Include="WebServices\PaymentType.py" />
+    <Compile Include="Client.py" />
     <Compile Include="WebServices\test.py" />
     <Compile Include="WebServices\WebService.py" />
+    <Compile Include="WebServices\__init__.py" />
     <Compile Include="__init__.py" />
   </ItemGroup>
   <ItemGroup>

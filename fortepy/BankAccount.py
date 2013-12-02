@@ -38,10 +38,6 @@ class BankAccount(PaymentMethod):
     @staticmethod
     def create(**kwargs):
         return BankAccount(**kwargs)
-    @staticmethod
-    def retrieve(id):
-        # TODO
-        pass
 
     def sale(self, amount):
         return self.transaction(20, amount)

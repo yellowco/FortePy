@@ -89,3 +89,135 @@ fortepy.config(merchant_id, api_login_id, transaction_key, agi_password)
 transaction = fortepy.Transaction.retrieve(id=tx_id)
 transaction.void() # or something
 ```
+
+### Fancier stuff
+
+```
+import fortepy
+fortepy.config(merchant_id, api_login_id, transaction_key, agi_password)
+
+client = fortepy.Client.retrieve(id=client_id)
+order = fortepy.Order()
+verification = fortepy.AddressVerification()
+recurrence = fortepy.Recurrence()
+tx_id = client.payment_methods[0]
+	.regarding_order(order)
+	.including_recurrence(recurrence)
+	.verify_with(verification)
+	.sale(15)
+```
+
+## Properties and Methods
+
+### fortepy.Client
+
+#### Properties
+
+```
+id:12345 # read only
+email:'somewhere@there.com'
+consumer_id:12345
+billing_address:<fortepy.Address>
+shipping_address:<fortepy.Address>
+status:<fortepy.Client.[ACTIVE|DELETED|SUSPENDED]>
+ssn:"123-45-6789"
+drivers_license:<fortepy.DriversLicense>
+birthdate:<datetime>
+ip:"123.123.123.123"
+payment_methods:[<fortepy.PaymentMethod>]
+transactions:[<fortepy.Transaction>] #read only
+```
+
+#### Methods
+
+```
+fortepy.Client.create()
+fortepy.Client.retrieve(id)
+fortepy.Client().save()
+fortepy.Client().delete()
+```
+
+### fortepy.Address
+
+#### Properties
+
+```
+first_name:'John'
+last_name:'Customer'
+street1:'132 there'
+street2:'apt 123'
+city:'somecity'
+state:'IL'
+postal:'01234'
+country:'USA'
+phone:'1234567890'
+fax:'1234567890'
+```
+
+### fortepy.DriversLicense
+
+#### Properties
+
+```
+number:'W293847425345234'
+state:'IL'
+```
+
+### fortepy.BankAccount extends fortepy.PaymentMethod
+
+#### Properties
+
+```
+id:23094832 # read only
+client:<fortepy.Client>
+note:"some note"
+account_holder:'John Client'
+is_default:True
+account_number:'01253499345'
+routing_number:'043958345'
+type:<fortepy.BankAccount.[CHECKING|SAVINGS]>
+```
+
+#### Methods
+
+```
+fortepy.BankAccount.create()
+fortepy.BankAccount.retrieve(id) # note that this may return a credit card object
+fortepy.BankAccount().sale(amount)
+fortepy.BankAccount().authorization(amount)
+fortepy.BankAccount().credit(amount)
+fortepy.BankAccount().force(amount)
+fortepy.BankAccount().verify(amount)
+fortepy.BankAccount().save()
+fortepy.BankAccount().delete()
+```
+
+### fortepy.CreditCard extends fortepy.PaymentMethod
+
+#### Properties
+
+```
+id:23094832 # read only
+client:<fortepy.Client>
+note:"some note"
+account_holder:'John Client'
+is_default:True
+card_number:'01253499345'
+expiration_date:<datetime>
+card_type:<fortepy.CreditCard.[VISA|MAST|DISC|AMER|DINE|JCB]>
+is_procurement_card:True
+```
+
+#### Methods
+
+```
+fortepy.CreditCard.create()
+fortepy.CreditCard.retrieve(id) # note that this may return a bank account object
+fortepy.CreditCard().sale(amount)
+fortepy.CreditCard().authorization(amount)
+fortepy.CreditCard().credit(amount)
+fortepy.CreditCard().preauthorization(amount)
+fortepy.CreditCard().balance_inquiry(amount)
+fortepy.CreditCard().save()
+fortepy.CreditCard().delete()
+```

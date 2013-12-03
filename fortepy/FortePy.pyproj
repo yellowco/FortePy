@@ -6,13 +6,18 @@
     <ProjectGuid>bc32ab61-6c38-40e5-b17c-616336754571</ProjectGuid>
     <ProjectHome>
     </ProjectHome>
-    <StartupFile>WebServices\test.py</StartupFile>
+    <StartupFile>tests\test.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <Name>FortePy</Name>
     <RootNamespace>pyForte</RootNamespace>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <CommandLineArguments />
+    <InterpreterPath />
+    <InterpreterArguments />
+    <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -24,6 +29,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AddressVerification.py" />
+    <Compile Include="Config.py" />
     <Compile Include="DriversLicense.py" />
     <Compile Include="Address.py" />
     <Compile Include="AGI\DirectSocketInterface.py" />
@@ -34,10 +40,10 @@
     <Compile Include="BankAccount.py" />
     <Compile Include="CreditCard.py" />
     <Compile Include="tests\test.py" />
+    <Compile Include="tests\__init__.py" />
     <Compile Include="Transaction.py" />
     <Compile Include="WebServices\PaymentMethod.py" />
     <Compile Include="Client.py" />
-    <Compile Include="WebServices\test.py" />
     <Compile Include="WebServices\WebService.py" />
     <Compile Include="WebServices\__init__.py" />
     <Compile Include="__init__.py" />

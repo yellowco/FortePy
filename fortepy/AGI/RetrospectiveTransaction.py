@@ -1,4 +1,4 @@
-from DirectSocketInterface import DirectSocketInterface
+from .DirectSocketInterface import DirectSocketInterface
 class RetrospectiveTransaction(object):
     SOCKET = DirectSocketInterface()
     def __init__(self, trace_number=None, authorization_code=None):

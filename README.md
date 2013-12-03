@@ -2,6 +2,8 @@
 
 Python bindings for the Forte payment network.
 
+Still in development. The API below is guaranteed, but functionality is not at the moment.
+
 ## Clients
 
 ### Creating a new client

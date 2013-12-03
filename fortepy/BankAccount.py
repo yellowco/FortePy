@@ -1,14 +1,15 @@
+from .AGI.RetrospectiveTransaction import RetrospectiveTransaction
 from .WebServices.PaymentMethod import PaymentMethod
 from .WebServices.WebService import WebService
 
-class BankAccount(PaymentMethod):
+class BankAccount(PaymentMethod, RetrospectiveTransaction):
 	AccountType = WebService.CLIENT.factory.create('EcAccountType')
 	CHECKING = AccountType['CHECKING']
 	SAVINGS = AccountType['SAVINGS']
 
 	def __init__(self, **kwargs):
-		PaymentMethod.__init__(**kwargs)
-		RetrospectiveTransaction.__init__()
+		PaymentMethod.__init__(self, **kwargs)
+		RetrospectiveTransaction.__init__(self)
 
 	@property
 	def account_number(self):

@@ -1,6 +1,6 @@
+from .AGI.RetrospectiveTransaction import RetrospectiveTransaction
 from .WebServices.PaymentMethod import PaymentMethod
 from .WebServices.WebService import WebService
-from .AGI.RetrospectiveTransaction import RetrospectiveTransaction
 
 class CreditCard(PaymentMethod, RetrospectiveTransaction):
 	CardType = WebService.CLIENT.factory.create('CcCardType')
@@ -12,8 +12,8 @@ class CreditCard(PaymentMethod, RetrospectiveTransaction):
 	JCB = CardType['JCB']
 
 	def __init__(self, **kwargs):
-		PaymentMethod.__init__(**kwargs)
-		RetrospectiveTransaction.__init__()
+		PaymentMethod.__init__(self, **kwargs)
+		RetrospectiveTransaction.__init__(self)
 		self.cvv = ""
 	   
 	@property

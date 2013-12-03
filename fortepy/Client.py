@@ -12,10 +12,7 @@ class Client(WebService):
 	SUSPENDED = ClientStatus['Suspended']
 	def __init__(self, record=None, **kwargs):
 		super(Client, self).__init__(WebService.CLIENT)
-		if record:
-			self._record = record
-		else:
-			self._record = self.default_record
+		self._record = record if record else self.default_record
 		self._load_addresses()
 		self._payment_methods = None # populate later!
 		self.ssn = ""
@@ -109,10 +106,20 @@ class Client(WebService):
 	@status.setter
 	def status(self, value):
 		self._record.Status = value
+		
+	def add_payment_method(self, method):
+		self.payment_methods.append(method)
+		method.client = self
+		return self
+		
 	@property
 	def payment_methods(self):
 		if self._payment_methods is None:
-			self._payment_methods = PaymentMethod.find_all_by_client_id(self.id, BankAccount, CreditCard)
+			if self.id is None:
+				# They're not saved, so they shouldn't have any payments.
+				self._payment_methods = []
+			else:
+				self._payment_methods = PaymentMethod.find_all_by_client_id(self.id, BankAccount, CreditCard)
 		return self._payment_methods
 	@property
 	def transactions(self):
@@ -132,7 +139,6 @@ class Client(WebService):
 
 		if self._payment_methods is not None:
 			for payment_method in self._payment_methods:
-				payment_method.client = self
 				payment_method.save()
 
 		return self

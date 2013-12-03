@@ -1,6 +1,6 @@
 # FortePy
 
-Python bindings for the Forte payment network.
+Python bindings for the [Forte payment network](http://www.forte.net/).
 
 Still in development. The API below is guaranteed, but functionality is not at the moment.
 
@@ -52,7 +52,7 @@ bank_account = fortepy.BankAccount.create(
 	account_number='1234567890',
 	routing_number='1234567890',
 	type=fortepy.BankAccount.CHECKING)
-client.payment_methods.append(bank_account)
+client.add_payment_method(bank_account)
 client.save()
 ```
 
@@ -133,10 +133,10 @@ transactions:[<fortepy.Transaction>] #read only
 #### Methods
 
 ```
-fortepy.Client.create()
-fortepy.Client.retrieve(id)
-fortepy.Client().save()
-fortepy.Client().delete()
+fortepy.Client.create() returns <fortepy.Client>
+fortepy.Client.retrieve(id) returns <fortepy.Client>
+fortepy.Client().save() returns self
+fortepy.Client().delete() returns self
 ```
 
 ### fortepy.Address
@@ -183,15 +183,15 @@ type:<fortepy.BankAccount.[CHECKING|SAVINGS]>
 #### Methods
 
 ```
-fortepy.BankAccount.create()
-fortepy.BankAccount.retrieve(id) # note that this may return a credit card object
-fortepy.BankAccount().sale(amount)
-fortepy.BankAccount().authorization(amount)
-fortepy.BankAccount().credit(amount)
-fortepy.BankAccount().force(amount)
-fortepy.BankAccount().verify(amount)
-fortepy.BankAccount().save()
-fortepy.BankAccount().delete()
+fortepy.BankAccount.create() returns <fortepy.CreditCard>
+fortepy.BankAccount.retrieve(id) returns <fortepy.PaymentMethod> # note that this may return a credit card object
+fortepy.BankAccount().sale(amount) returns (approved[True|False], tx_id, {<response data>})
+fortepy.BankAccount().authorization(amount) returns (approved[True|False], tx_id, {<response data>})
+fortepy.BankAccount().credit(amount) returns (approved[True|False], tx_id, {<response data>})
+fortepy.BankAccount().force(amount) returns (approved[True|False], tx_id, {<response data>})
+fortepy.BankAccount().verify(amount) returns (approved[True|False], tx_id, {<response data>})
+fortepy.BankAccount().save() returns self
+fortepy.BankAccount().delete() returns self
 ```
 
 ### fortepy.CreditCard extends fortepy.PaymentMethod
@@ -213,13 +213,13 @@ is_procurement_card:True
 #### Methods
 
 ```
-fortepy.CreditCard.create()
-fortepy.CreditCard.retrieve(id) # note that this may return a bank account object
-fortepy.CreditCard().sale(amount)
-fortepy.CreditCard().authorization(amount)
-fortepy.CreditCard().credit(amount)
-fortepy.CreditCard().preauthorization(amount)
-fortepy.CreditCard().balance_inquiry(amount)
-fortepy.CreditCard().save()
-fortepy.CreditCard().delete()
+fortepy.CreditCard.create() returns <fortepy.CreditCard>
+fortepy.CreditCard.retrieve(id) returns <fortepy.PaymentMethod> # note that this may return a bank account object
+fortepy.CreditCard().sale(amount) returns (approved[True|False], tx_id, {<response data>})
+fortepy.CreditCard().authorization(amount) returns (approved[True|False], tx_id, {<response data>})
+fortepy.CreditCard().credit(amount) returns (approved[True|False], tx_id, {<response data>})
+fortepy.CreditCard().preauthorization(amount) returns (approved[True|False], tx_id, {<response data>})
+fortepy.CreditCard().balance_inquiry(amount) returns (approved[True|False], tx_id, {<response data>})
+fortepy.CreditCard().save() returns self
+fortepy.CreditCard().delete() returns self
 ```

@@ -1,25 +1,25 @@
-from . import WebService
+from .WebService import WebService
 
-class PaymentMethod(WebService.WebService):
-	def __init__(self, client=None, **kwargs):
-		super(PaymentMethod, self).__init__(WebService.WebService.CLIENT)
-		self.record = self.endpoint.factory.create('PaymentMethod')
-		self.record.AcctHolderName = ""
-		self.record.CcCardNumber = ""
-		self.record.CcExpirationDate = ""
-		self.record.CcCardType = CcCardType.VISA
-		self.record.CcProcurementCard = False
-		self.record.EcAccountNumber = ""
-		self.record.EcAccountTRN = ""
-		self.record.EcAccountType = WebService.WebService.CLIENT.factory.create('EcAccountType')['CHECKING']
-		self.record.Note = ""
-		self.record.PaymentMethodID = None
-		self.record.ClientID = client.ClientID if client else None
-		self.record.MerchantID = WebService.WebService.MERCHANT_ID
-		self.record.IsDefault = False
+class PaymentMethod(WebService):
+	def __init__(self, **kwargs):
+		super(PaymentMethod, self).__init__(WebService.CLIENT)
+		self._record = self.endpoint.factory.create('PaymentMethod')
+		self._record.AcctHolderName = ""
+		self._record.CcCardNumber = ""
+		self._record.CcExpirationDate = ""
+		self._record.CcCardType = None
+		self._record.CcProcurementCard = False
+		self._record.EcAccountNumber = ""
+		self._record.EcAccountTRN = ""
+		self._record.EcAccountType = WebService.CLIENT.factory.create('EcAccountType')['CHECKING']
+		self._record.Note = ""
+		self._record.PaymentMethodID = None
+		self._record.ClientID = None
+		self._record.MerchantID = WebService.MERCHANT_ID
+		self._record.IsDefault = False
 		self._client = None
 		for key, value in kwargs.items():
-			setattr(client, key, value)
+			setattr(self, key, value)
 
 	@property
 	def client(self):
@@ -27,59 +27,59 @@ class PaymentMethod(WebService.WebService):
 	@client.setter
 	def client(self, value):
 		self._client = value
-		self.record.ClientID = self._client.id
+		self._record.ClientID = self._client.id
 	@property
 	def note(self):
-		return self.record.Note
+		return self._record.Note
 	@note.setter
 	def note(self, value):
-		self.record.Note = value
+		self._record.Note = value
 	@property
 	def id(self):
-		return self.record.PaymentMethodID
+		return self._record.PaymentMethodID
 	@property
 	def account_holder(self):
-		return self.record.AcctHolderName
+		return self._record.AcctHolderName
 	@account_holder.setter
 	def account_holder(self, value):
-		self.record.AcctHolderName = value
+		self._record.AcctHolderName = value
 	@property
 	def is_default(self):
-		return self.record.IsDefault
+		return self._record.IsDefault
 	@is_default.setter
 	def is_default(self, value):
-		self.record.IsDefault = value
+		self._record.IsDefault = value
 
 	def save(self):
-		if self.PaymentMethodID is None:
-			self.PaymentMethodID = 0
-			self.PaymentMethodID = self.endpoint.service['BasicHttpBinding_IClientService'].createPaymentMethod(self.authentication, self.record)
+		if self.id is None:
+			self._record.PaymentMethodID = 0
+			self._record.PaymentMethodID = self.endpoint.service['BasicHttpBinding_IClientService'].createPaymentMethod(self.authentication, self._record)
 		else:
-			self.PaymentMethodID = self.endpoint.service['BasicHttpBinding_IClientService'].updatePaymentMethod(self.authentication, self.record)
+			self._record.PaymentMethodID = self.endpoint.service['BasicHttpBinding_IClientService'].updatePaymentMethod(self.authentication, self._record)
 		return self
 
 	def delete(self):
-		if self.PaymentMethodID is not None:
-			result = (self.endpoint.service['BasicHttpBinding_IClientService'].deletePaymentMethod(self.authentication, WebService.WebService.MERCHANT_ID, self.PaymentMethodID) == self.PaymentMethodID)
-			self.PaymentMethodID = None
+		if self.id is not None:
+			result = (self.endpoint.service['BasicHttpBinding_IClientService'].deletePaymentMethod(self.authentication, WebService.MERCHANT_ID, self.id) == self.id)
+			self._record.PaymentMethodID = None
 		return self
 
 	@staticmethod
 	def retrieve(id, type):
-		record = WebService.WebService.CLIENT.service['BasicHttpBinding_IClientService'].getPaymentMethod(WebService.WebService.get_authentication(WebService.WebService.CLIENT), WebService.WebService.MERCHANT_ID, 0, id)[0][0]
+		record = WebService.CLIENT.service['BasicHttpBinding_IClientService'].getPaymentMethod(WebService.get_authentication(WebService.CLIENT), WebService.MERCHANT_ID, 0, id)[0][0]
 		payment_method = type()
-		payment_method.record = record
+		payment_method._record = record
 		return payment_method
 
 	@staticmethod
 	def find_all_by_client_id(id, bank_type, cc_type):
-		methods = WebService.WebService.CLIENT.service['BasicHttpBinding_IClientService'].getPaymentMethod(WebService.WebService.get_authentication(WebService.WebService.CLIENT), WebService.WebService.MERCHANT_ID, id, 0)[0]
+		methods = WebService.CLIENT.service['BasicHttpBinding_IClientService'].getPaymentMethod(WebService.get_authentication(WebService.CLIENT), WebService.MERCHANT_ID, id, 0)[0]
 		payment_objects = []
 		for method in methods:
 			if record.CcCardNumber == "" or record.CcCardNumber is None:
 				payment_method = bank_type()
 			else:
 				payment_method = cc_type()
-			payment_method.record = method
+			payment_method._record = method
 			payment_objects.append(payment_method)
 		return payment_objects

@@ -7,7 +7,7 @@ class WebService(object):
 	MERCHANT_ID = None
 	CLIENT = Client('https://sandbox.paymentsgateway.net/WS/Client.wsdl')
 	TRANSACTION = Client('https://sandbox.paymentsgateway.net/WS/Transaction.wsdl')
-
+	
 	def __init__(self, endpoint):
 		if WebService.API_LOGIN_ID is None:
 			raise Exception("API Login ID is not set")
@@ -17,7 +17,7 @@ class WebService(object):
 			raise Exception("Merchant ID is not set")
 		self.endpoint = endpoint
 		self._record = None
-	
+
 	@staticmethod
 	def get_authentication(endpoint):
 		auth = endpoint.factory.create('Authentication')

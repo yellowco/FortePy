@@ -20,7 +20,7 @@ class Client(WebService):
 		self.birthdate = None
 		self.ip = ""
 		for key, value in kwargs.items():
-			setattr(client, key, value)
+			setattr(self, key, value)
 	
 	@property
 	def default_record(self):

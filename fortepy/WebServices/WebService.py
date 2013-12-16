@@ -1,5 +1,6 @@
 from suds.client import Client
 import time, hmac
+import six
 
 class WebService(object):
 	API_LOGIN_ID = None
@@ -23,7 +24,7 @@ class WebService(object):
 		auth = endpoint.factory.create('Authentication')
 		auth.APILoginID = WebService.API_LOGIN_ID
 		auth.UTCTime = "%d" % (time.time() * 10000000 + 621355968000000000)
-		auth.TSHash = hmac.new(bytes(WebService.TRANSACTION_KEY, 'UTF-8'), bytes("%s|%s" % (WebService.API_LOGIN_ID, auth.UTCTime), 'UTF-8')).hexdigest()
+		auth.TSHash = hmac.new(six.b(WebService.TRANSACTION_KEY), six.b("%s|%s" % (WebService.API_LOGIN_ID, auth.UTCTime))).hexdigest()
 		return auth
 
 	@property

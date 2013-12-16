@@ -15,7 +15,8 @@ class ClientTest(unittest.TestCase):
 		client.billing_address.first_name = 'Kevin'
 		client.billing_address.last_name = 'Wang'
 		client.email = 'kevmo314@gmail.com'
-		self.assertIsNotNone(client.save().id, "Client did not save properly on the server")
+		client.save()
+		self.assertIsNotNone(client.id, "Client did not save properly on the server")
 		self.assertIsNotNone(Client.retrieve(client.id), "Could not retrieve the client from the server")
 		self.assertEqual(Client.retrieve(client.id).email, client.email, "Email attribute not retrieved from the server")
 		self.assertIsNone(Client.retrieve(-1), "An invalid client was returned from the server")

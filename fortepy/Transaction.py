@@ -63,13 +63,13 @@ class Transaction(WebService):
 		except Exception as ex:
 			return None
 
-	def capture():
+	def capture(self):
 		method = PaymentMethod.retrieve(self.payment_method_id)
 		method.trace_number = self.id
 		method.authorization_code = self.authorization_code
 		return method.capture()
 
-	def void():
+	def void(self):
 		method = PaymentMethod.retrieve(self.payment_method_id)
 		method.trace_number = self.id
 		method.authorization_code = self.authorization_code

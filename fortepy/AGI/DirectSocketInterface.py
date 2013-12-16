@@ -1,5 +1,6 @@
 import ssl
 import socket
+import six
 
 class DirectSocketInterface(object):
 	AGI_PASSWORD = None
@@ -21,7 +22,7 @@ class DirectSocketInterface(object):
 		if value is None:
 			return False
 		data = "%s=%s\n" % (key, str(value))
-		return self.socket.sendall(bytes(data, 'UTF-8'))
+		return self.socket.sendall(six.b(data))
 
 	def send(self):
 		return self.socket.sendall(b"endofdata\n\n")
@@ -30,7 +31,7 @@ class DirectSocketInterface(object):
 		data = ""
 		while data.rfind("endofdata") == -1:
 			chunk = self.socket.recv(4096)
-			data = data + str(chunk, 'UTF-8')
+			data = data + six.u(chunk)
 		dict = {}
 		for line in data.split("\n"):
 			if line.find('=') != -1:

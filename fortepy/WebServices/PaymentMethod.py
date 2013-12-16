@@ -73,13 +73,14 @@ class PaymentMethod(WebService):
 
 	@staticmethod
 	def find_all_by_client_id(id, bank_type, cc_type):
-		methods = WebService.CLIENT.service['BasicHttpBinding_IClientService'].getPaymentMethod(WebService.get_authentication(WebService.CLIENT), WebService.MERCHANT_ID, id, 0)[0]
+		methods = WebService.CLIENT.service['BasicHttpBinding_IClientService'].getPaymentMethod(WebService.get_authentication(WebService.CLIENT), WebService.MERCHANT_ID, id, 0)
 		payment_objects = []
-		for method in methods:
-			if method.CcCardNumber == "" or method.CcCardNumber is None:
-				payment_method = bank_type()
-			else:
-				payment_method = cc_type()
-			payment_method._record = method
-			payment_objects.append(payment_method)
+		if methods:
+			for method in methods[0]:
+				if method.CcCardNumber == "" or method.CcCardNumber is None:
+					payment_method = bank_type()
+				else:
+					payment_method = cc_type()
+				payment_method._record = method
+				payment_objects.append(payment_method)
 		return payment_objects

@@ -6,7 +6,7 @@ class Address(object):
         self.street1 = street1
         self.street2 = street2
         self.city = city
-        self.state = state
+        self.state = state if not state == '-1' else ""
         self.postal = postal
         self.country = country
         self.phone = phone

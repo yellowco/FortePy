@@ -13,7 +13,8 @@ setup(
     url="https://github.com/kevmo314/FortePy",
     description="Python bindings for Forte Payments",
     install_requires=[
-		'six'
+		'six',
+		'suds-jurko'
     ],
     packages=[	
         'fortepy'

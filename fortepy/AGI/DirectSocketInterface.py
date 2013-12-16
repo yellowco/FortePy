@@ -31,7 +31,10 @@ class DirectSocketInterface(object):
 		data = ""
 		while data.rfind("endofdata") == -1:
 			chunk = self.socket.recv(4096)
-			data = data + six.u(chunk)
+			if not six.PY3:
+				data = data + str(chunk)
+			else:
+				data = data + str(chunk, 'UTF-8')
 		dict = {}
 		for line in data.split("\n"):
 			if line.find('=') != -1:

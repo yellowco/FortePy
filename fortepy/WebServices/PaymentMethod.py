@@ -76,7 +76,7 @@ class PaymentMethod(WebService):
 		methods = WebService.CLIENT.service['BasicHttpBinding_IClientService'].getPaymentMethod(WebService.get_authentication(WebService.CLIENT), WebService.MERCHANT_ID, id, 0)[0]
 		payment_objects = []
 		for method in methods:
-			if record.CcCardNumber == "" or record.CcCardNumber is None:
+			if method.CcCardNumber == "" or method.CcCardNumber is None:
 				payment_method = bank_type()
 			else:
 				payment_method = cc_type()

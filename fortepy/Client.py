@@ -139,7 +139,8 @@ class Client(WebService):
 
 		if self._payment_methods is not None:
 			for payment_method in self._payment_methods:
-				payment_method.save()
+				if not isinstance(payment_method, BankAccount) or payment_method.id is None:
+					payment_method.save()
 
 		return self
 

@@ -8,6 +8,7 @@ python:
 # command to install dependencies
 install:
   - pip install six --use-mirrors
+  - pip install setuptools==1.4
   - pip install suds-jurko
 
 # command to run tests

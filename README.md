@@ -68,6 +68,21 @@ client.payment_methods[k].delete() # delete the kth payment method
 
 Note that because `payment_methods` is cached, it may be wise to also issue `payment_methods.pop(k)`. `client` does not need to be saved afterwards as it is automatically applied.
 
+### Arbitrary attribute storage
+
+FortePy has the ability to use the `Note` property as a blob type to store arbitrary data objects, which are saved along with the payment method.
+
+```
+import fortepy
+fortepy.config(merchant_id, api_login_id, transaction_key, agi_password)
+
+client = fortepy.Client.retrieve(id=client_id)
+client.payment_methods[k].my_property = 15
+client.save()
+```
+
+To disable this feature, issue `fortepy.config(require_compliance=True)`.
+
 ## Transactions
 
 ### Issuing a transaction

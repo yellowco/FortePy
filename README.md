@@ -6,6 +6,15 @@ Still in development. The API below is guaranteed, but functionality is not at t
 
 [![Build Status](https://travis-ci.org/kevmo314/FortePy.png?branch=master)](https://travis-ci.org/kevmo314/FortePy) [![Coverage Status](https://coveralls.io/repos/kevmo314/FortePy/badge.png)](https://coveralls.io/r/kevmo314/FortePy)
 
+## Configure
+
+```
+import fortepy
+fortepy.config(merchant_id, api_login_id, transaction_key, agi_password, sandbox, require_compliance)
+```
+
+By default, `sandbox` is set to `False` and `require_compliance` is set to `False`. The other parameters must be initialized.
+
 ## Clients
 
 ### Creating a new client

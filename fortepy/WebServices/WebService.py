@@ -6,8 +6,8 @@ class WebService(object):
 	API_LOGIN_ID = None
 	TRANSACTION_KEY = None
 	MERCHANT_ID = None
-	CLIENT = Client('https://sandbox.paymentsgateway.net/WS/Client.wsdl')
-	TRANSACTION = Client('https://sandbox.paymentsgateway.net/WS/Transaction.wsdl')
+	CLIENT = None
+	TRANSACTION = None
 	
 	def __init__(self, endpoint):
 		if WebService.API_LOGIN_ID is None:

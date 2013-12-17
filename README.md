@@ -4,6 +4,8 @@ Python bindings for the [Forte payment network](http://www.forte.net/).
 
 Still in development. The API below is guaranteed, but functionality is not at the moment.
 
+[![Build Status](https://travis-ci.org/kevmo314/FortePy.png?branch=master)](https://travis-ci.org/kevmo314/FortePy) [![Coverage Status](https://coveralls.io/repos/kevmo314/FortePy/badge.png)](https://coveralls.io/r/kevmo314/FortePy)
+
 ## Clients
 
 ### Creating a new client

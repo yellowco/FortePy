@@ -161,3 +161,7 @@ class Client(WebService):
 	@staticmethod
 	def all():
 		raise Exception("Forte's API does not permit retrieving all clients at the moment.")
+
+	def __str__(self):
+		self._save_addresses()
+		return str(self._record)

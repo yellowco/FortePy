@@ -8,8 +8,8 @@ class BankAccount(PaymentMethod, RetrospectiveTransaction):
 	SAVINGS = AccountType['SAVINGS']
 
 	def __init__(self, **kwargs):
-		PaymentMethod.__init__(self, **kwargs)
 		RetrospectiveTransaction.__init__(self)
+		PaymentMethod.__init__(self, **kwargs)
 
 	@property
 	def account_number(self):

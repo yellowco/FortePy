@@ -16,8 +16,8 @@ class WebService(object):
 			raise Exception("Transaction key is not set")
 		if WebService.MERCHANT_ID is None:
 			raise Exception("Merchant ID is not set")
-		self.endpoint = endpoint
-		self._record = None
+		super(WebService, self).__setattr__('endpoint', endpoint)
+		super(WebService, self).__setattr__('_record', None)
 
 	@staticmethod
 	def get_authentication(endpoint):

@@ -12,9 +12,9 @@ class CreditCard(PaymentMethod, RetrospectiveTransaction):
 	JCB = CardType['JCB']
 
 	def __init__(self, **kwargs):
-		PaymentMethod.__init__(self, **kwargs)
 		RetrospectiveTransaction.__init__(self)
 		self.cvv = ""
+		PaymentMethod.__init__(self, **kwargs)
 	   
 	@property
 	def card_number(self):

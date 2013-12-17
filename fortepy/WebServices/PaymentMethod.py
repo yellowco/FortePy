@@ -39,7 +39,7 @@ class PaymentMethod(WebService):
 			if name == 'note':
 				return 	self._record.Note
 			else:
-				raise KeyError('Compliance mode is turned on, thus this variable cannot be accessed.')
+				raise AttributeError("Compliance mode is turned on. Object has no attribute \'%s\'" % name)
 		return self._data[name]
 
 	def __setattr__(self, name, value):

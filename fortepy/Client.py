@@ -6,10 +6,9 @@ from .Address import Address
 from .DriversLicense import DriversLicense
 
 class Client(WebService):
-	ClientStatus = WebService.CLIENT.factory.create('ClientStatus')
-	ACTIVE = ClientStatus['Active']
-	DELETED = ClientStatus['Deleted']
-	SUSPENDED = ClientStatus['Suspended']
+	ACTIVE = None
+	DELETED = None
+	SUSPENDED = None
 	def __init__(self, record=None, **kwargs):
 		super(Client, self).__init__(WebService.CLIENT)
 		self._record = record if record else self.default_record

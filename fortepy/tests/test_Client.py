@@ -8,7 +8,8 @@ class ClientTest(unittest.TestCase):
 		Config.config(merchant_id = 160361,
 			transaction_key = '1NSa45VrQJk2j5',
 			api_login_id = '5ot80D7XdD',
-			agi_password = 'Kqq4QKt35L6')
+			agi_password = 'Kqq4QKt35L6',
+			sandbox = True)
 
 	def test_client(self):
 		client = Client.create()

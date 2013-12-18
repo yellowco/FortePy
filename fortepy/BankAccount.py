@@ -3,9 +3,8 @@ from .WebServices.PaymentMethod import PaymentMethod
 from .WebServices.WebService import WebService
 
 class BankAccount(PaymentMethod, RetrospectiveTransaction):
-	AccountType = WebService.CLIENT.factory.create('EcAccountType')
-	CHECKING = AccountType['CHECKING']
-	SAVINGS = AccountType['SAVINGS']
+	CHECKING = None
+	SAVINGS = None
 
 	def __init__(self, **kwargs):
 		RetrospectiveTransaction.__init__(self)

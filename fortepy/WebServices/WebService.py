@@ -1,4 +1,3 @@
-from suds.client import Client
 import time, hmac
 import six
 
@@ -18,6 +17,7 @@ class WebService(object):
 			raise Exception("Merchant ID is not set")
 		super(WebService, self).__setattr__('endpoint', endpoint)
 		super(WebService, self).__setattr__('_record', None)
+
 
 	@staticmethod
 	def get_authentication(endpoint):

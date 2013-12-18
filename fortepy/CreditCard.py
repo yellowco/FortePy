@@ -3,14 +3,12 @@ from .WebServices.PaymentMethod import PaymentMethod
 from .WebServices.WebService import WebService
 
 class CreditCard(PaymentMethod, RetrospectiveTransaction):
-	CardType = WebService.CLIENT.factory.create('CcCardType')
-	VISA = CardType['VISA']
-	MAST = CardType['MAST']
-	DISC = CardType['DISC']
-	AMER = CardType['AMER']
-	DINE = CardType['DINE']
-	JCB = CardType['JCB']
-
+	VISA = None
+	MAST = None
+	DISC = None
+	AMER = None
+	DINE = None
+	JCB = None
 	def __init__(self, **kwargs):
 		RetrospectiveTransaction.__init__(self)
 		self.cvv = ""

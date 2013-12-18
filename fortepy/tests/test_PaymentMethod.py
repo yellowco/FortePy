@@ -10,7 +10,8 @@ class PaymentMethodTest(unittest.TestCase):
 		Config.config(merchant_id = 160361,
 			transaction_key = '1NSa45VrQJk2j5',
 			api_login_id = '5ot80D7XdD',
-			agi_password = 'Kqq4QKt35L6')
+			agi_password = 'Kqq4QKt35L6',
+			sandbox = True)
 	def test_bindable(self):
 		client = Client.create()
 		client.billing_address.first_name = 'Kevin'
@@ -21,9 +22,11 @@ class PaymentMethodTest(unittest.TestCase):
 			routing_number='253271806',
 			type=BankAccount.CHECKING)
 		account.random_data = 'yes'
+		print(account)
 		client.add_payment_method(account)
 		id = client.save().id
 		n = Client.retrieve(id=id)
+		print(n.payment_methods)
 		self.assertEqual(n.payment_methods[0].random_data, 'yes', "The arbitrary data did not save correctly")
 
 	def test_unbindable(self):

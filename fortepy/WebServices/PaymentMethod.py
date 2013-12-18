@@ -1,5 +1,6 @@
 from .WebService import WebService
 import pickle
+import six
 
 class PaymentMethod(WebService):
 	REQUIRE_COMPLIANCE = False
@@ -9,8 +10,13 @@ class PaymentMethod(WebService):
 		r = record if record else self.default_record
 		if not PaymentMethod.REQUIRE_COMPLIANCE:
 			try:
-				self._data = pickle.loads(r.Note)
-			except:
+				if six.PY3:
+					self._data = pickle.loads(bytes(r.Note, 'UTF-8'))
+				else:
+					self._data = pickle.loads(r.Note)
+			except Exception as e:
+				print(e)
+				print(r.Note)
 				self._data = {'note':r.Note}
 		self._record = r
 		for key, value in kwargs.items():
@@ -48,14 +54,10 @@ class PaymentMethod(WebService):
 				self._record.Note = value
 			else:
 				super(PaymentMethod, self).__setattr__(name, value)
+		elif name not in dir(self):
+			self._data[name] = value
 		else:
-			if hasattr(self, name):
-				if name in self._data:
-					self._data[name] = value
-				else:
-					super(PaymentMethod, self).__setattr__(name, value)
-			else:
-				self._data[name] = value
+			super(PaymentMethod, self).__setattr__(name, value)
 
 	@property
 	def client(self):

@@ -22,11 +22,9 @@ class PaymentMethodTest(unittest.TestCase):
 			routing_number='253271806',
 			type=BankAccount.CHECKING)
 		account.random_data = 'yes'
-		print(account)
 		client.add_payment_method(account)
 		id = client.save().id
 		n = Client.retrieve(id=id)
-		print(n.payment_methods)
 		self.assertEqual(n.payment_methods[0].random_data, 'yes', "The arbitrary data did not save correctly")
 
 	def test_unbindable(self):

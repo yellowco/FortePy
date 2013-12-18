@@ -1,6 +1,7 @@
 from .WebService import WebService
 import pickle
 import six
+import base64
 
 class PaymentMethod(WebService):
 	REQUIRE_COMPLIANCE = False
@@ -10,13 +11,9 @@ class PaymentMethod(WebService):
 		r = record if record else self.default_record
 		if not PaymentMethod.REQUIRE_COMPLIANCE:
 			try:
-				if six.PY3:
-					self._data = pickle.loads(bytes(r.Note, 'UTF-8'))
-				else:
-					self._data = pickle.loads(r.Note)
+				enc = base64.b64decode(r.Note)
+				self._data = pickle.loads(enc)
 			except Exception as e:
-				print(e)
-				print(r.Note)
 				self._data = {'note':r.Note}
 		self._record = r
 		for key, value in kwargs.items():
@@ -85,7 +82,10 @@ class PaymentMethod(WebService):
 		if self._client:
 			self._record.ClientID = self._client.id
 		if not PaymentMethod.REQUIRE_COMPLIANCE:
-			self._record.Note = pickle.dumps(self._data)
+			enc = base64.b64encode(pickle.dumps(self._data))
+			if six.PY3:
+				enc = enc.decode('ascii')
+			self._record.Note = enc
 		if self.id is None:
 			self._record.PaymentMethodID = 0
 			self._record.PaymentMethodID = self.endpoint.service['BasicHttpBinding_IClientService'].createPaymentMethod(self.authentication, self._record)

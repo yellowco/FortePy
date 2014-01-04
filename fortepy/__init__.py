@@ -1,6 +1,7 @@
 from .Client import Client
 from .Address import Address
 from .AddressVerification import AddressVerification
+from .WebServices.PaymentMethod import PaymentMethod
 from .BankAccount import BankAccount
 from .CreditCard import CreditCard
 from .DriversLicense import DriversLicense

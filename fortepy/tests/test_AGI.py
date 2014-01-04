@@ -25,6 +25,14 @@ class AGITest(unittest.TestCase):
 			type=BankAccount.CHECKING)
 		self.client.add_payment_method(self.bank_account)
 
+	def test_retrievable(self):
+		self.client.save()
+		c = Client.retrieve(id=self.client.id)
+		approved, txid, response = c.payment_methods[0].sale(15)
+		self.assertIsNotNone(txid, "Transaction ID is None")
+		self.assertTrue(approved, "Transaction was not approved")
+		c.delete()
+
 	def test_approved(self):
 		#
 		# To be honest, I find this to be really dumb.

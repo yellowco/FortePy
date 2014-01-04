@@ -57,12 +57,6 @@ class PaymentMethod(WebService):
 			super(PaymentMethod, self).__setattr__(name, value)
 
 	@property
-	def client(self):
-		return self._client
-	@client.setter
-	def client(self, value):
-		self._client = value
-	@property
 	def id(self):
 		return self._record.PaymentMethodID
 	@property
@@ -101,9 +95,11 @@ class PaymentMethod(WebService):
 		return self
 
 	@staticmethod
-	def retrieve(id, type):
-		record = WebService.CLIENT.service['BasicHttpBinding_IClientService'].getPaymentMethod(WebService.get_authentication(WebService.CLIENT), WebService.MERCHANT_ID, 0, id)[0][0]
-		payment_method = type(record=record)
+	def retrieve(id, type, client_id=0):
+		record = WebService.CLIENT.service['BasicHttpBinding_IClientService'].getPaymentMethod(WebService.get_authentication(WebService.CLIENT), WebService.MERCHANT_ID, client_id, id)
+		if record == '':
+			return None
+		payment_method = type(record=record[0][0])
 		return payment_method
 
 	@staticmethod

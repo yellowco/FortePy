@@ -40,8 +40,8 @@ class CreditCard(PaymentMethod, RetrospectiveTransaction):
 		self._record.CcProcurementCard = value
 
 	@staticmethod
-	def retrieve(id):
-		return PaymentMethod.retrieve(id, CreditCard)
+	def retrieve(id, **kwargs):
+		return PaymentMethod.retrieve(id, CreditCard, **kwargs)
 	@staticmethod
 	def create(**kwargs):
 		return CreditCard(**kwargs)

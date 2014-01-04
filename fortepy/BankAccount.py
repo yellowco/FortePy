@@ -35,8 +35,8 @@ class BankAccount(PaymentMethod, RetrospectiveTransaction):
 				'ecom_payment_check_account': self.account_number,
 				'ecom_payment_check_account_type': 'C' if str(self.type).find('CHECKING') != -1 else 'S'}
 	@staticmethod
-	def retrieve(id):
-		return PaymentMethod.retrieve(id, BankAccount)
+	def retrieve(id, **kwargs):
+		return PaymentMethod.retrieve(id, BankAccount, **kwargs)
 	@staticmethod
 	def create(**kwargs):
 		return BankAccount(**kwargs)

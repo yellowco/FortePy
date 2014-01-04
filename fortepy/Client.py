@@ -108,7 +108,7 @@ class Client(WebService):
 		
 	def add_payment_method(self, method):
 		self.payment_methods.append(method)
-		method.client = self
+		method._client = self
 		return self
 		
 	@property
@@ -119,7 +119,10 @@ class Client(WebService):
 				self._payment_methods = []
 			else:
 				self._payment_methods = PaymentMethod.find_all_by_client_id(self.id, BankAccount, CreditCard)
+		for method in self._payment_methods:
+			method._client = self # rebind the client to the payment method
 		return self._payment_methods
+
 	@property
 	def transactions(self):
 		return Transaction.find_all_by_client_id(self.id)

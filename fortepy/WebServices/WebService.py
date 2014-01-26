@@ -29,7 +29,7 @@ class WebService(object):
 
 	@property
 	def authentication(self):
-		return WebService.get_authentication(self.endpoint)
+		return WebService.get_authentication(WebService.CLIENT) # It doesn't matter where
 
 	def __str__(self):
 		return str(self._record)

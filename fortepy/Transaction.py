@@ -5,14 +5,14 @@ from .WebServices.PaymentMethod import PaymentMethod
 
 class Transaction(WebService):
 	def __init__(self, record=None, **kwargs):
-		WebService.__init__(self, WebService.TRANSACTION)
+		super(Transaction, self).__init__()
 		self._record = record if record else self.default_record
 		for key, value in kwargs.items():
 			setattr(client, key, value)
 
 	@property
 	def default_record(self):
-		record = self.endpoint.factory.create('TransactionSummary')
+		record = WebService.TRANSACTION.factory.create('TransactionSummary')
 		record.MerchantID = WebService.MERCHANT_ID
 		record.MerchantClientID = None
 		record.TransactionID = ""
@@ -47,13 +47,21 @@ class Transaction(WebService):
 	def payment_method_id(self):
 		return self._record.WalletID
 
+	@property
+	def response(self):
+		return self._record.Response
+
+	@property
+	def status(self):
+		return self.response.Status
+
 	@staticmethod
 	def save():
-		raise Exception("One does not simply save a transaction.")
+		raise NotImplementedError("One does not simply save a transaction.")
 
 	@staticmethod
 	def create():
-		raise Exception("One does not simply create a transaction.")
+		raise NotImplementedError("One does not simply create a transaction.")
 
 	@staticmethod
 	def retrieve(id):

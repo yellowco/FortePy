@@ -6,7 +6,7 @@ import base64
 class PaymentMethod(WebService):
 	REQUIRE_COMPLIANCE = False
 	def __init__(self, record=None, **kwargs):
-		super(PaymentMethod, self).__init__(WebService.CLIENT)
+		super(PaymentMethod, self).__init__()
 		self._client = None
 		r = record if record else self.default_record
 		if not PaymentMethod.REQUIRE_COMPLIANCE:
@@ -21,7 +21,7 @@ class PaymentMethod(WebService):
 
 	@property
 	def default_record(self):
-		record = self.endpoint.factory.create('PaymentMethod')
+		record = WebService.CLIENT.factory.create('PaymentMethod')
 		record.AcctHolderName = ""
 		record.CcCardNumber = ""
 		record.CcExpirationDate = ""
@@ -82,15 +82,15 @@ class PaymentMethod(WebService):
 			self._record.Note = enc
 		if self.id is None:
 			self._record.PaymentMethodID = 0
-			self._record.PaymentMethodID = self.endpoint.service['BasicHttpBinding_IClientService'].createPaymentMethod(self.authentication, self._record)
+			self._record.PaymentMethodID = WebService.CLIENT.service['BasicHttpBinding_IClientService'].createPaymentMethod(self.authentication, self._record)
 		else:
 			self._record.EcAccountNumber = self._record.EcAccountTRN = ""
-			self._record.PaymentMethodID = self.endpoint.service['BasicHttpBinding_IClientService'].updatePaymentMethod(self.authentication, self._record)
+			self._record.PaymentMethodID = WebService.CLIENT.service['BasicHttpBinding_IClientService'].updatePaymentMethod(self.authentication, self._record)
 		return self
 
 	def delete(self):
 		if self.id is not None:
-			result = (self.endpoint.service['BasicHttpBinding_IClientService'].deletePaymentMethod(self.authentication, WebService.MERCHANT_ID, self.id) == self.id)
+			result = (WebService.CLIENT.service['BasicHttpBinding_IClientService'].deletePaymentMethod(self.authentication, WebService.MERCHANT_ID, self.id) == self.id)
 			self._record.PaymentMethodID = None
 		return self
 

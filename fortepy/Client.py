@@ -10,7 +10,7 @@ class Client(WebService):
 	DELETED = None
 	SUSPENDED = None
 	def __init__(self, record=None, **kwargs):
-		super(Client, self).__init__(WebService.CLIENT)
+		super(Client, self).__init__()
 		self._record = record if record else self.default_record
 		self._load_addresses()
 		self._payment_methods = None # populate later!
@@ -23,7 +23,7 @@ class Client(WebService):
 	
 	@property
 	def default_record(self):
-		record = self.endpoint.factory.create('ClientRecord')
+		record = WebService.CLIENT.factory.create('ClientRecord')
 		record.MerchantID = WebService.MERCHANT_ID
 		record.ClientID = None
 		record.FirstName = ""
@@ -131,13 +131,32 @@ class Client(WebService):
 	def create(**kwargs):
 		return Client(**kwargs)
 
+	def verify(self):
+		return WebService.IDVERIFY.service['IDVerifyWS'].IDVerify(
+			WebService.MERCHANT_ID,
+			WebService.TRANSACTION_KEY,
+			self.id,
+			"",
+			"",
+			self.ssn,
+			self.billing_address.first_name,
+			self.billing_address.last_name,
+			self.billing_address.street1,
+			self.billing_address.city,
+			self.billing_address.state,
+			self.billing_address.postal,
+			self.billing_address.phone,
+			self.drivers_license.number,
+			self.drivers_license.state
+		)
+
 	def save(self):
 		self._save_addresses()
 		if self.id is None:
 			self._record.ClientID = 0
-			self._record.ClientID = self.endpoint.service['BasicHttpBinding_IClientService'].createClient(self.authentication, self._record)
+			self._record.ClientID = WebService.CLIENT.service['BasicHttpBinding_IClientService'].createClient(self.authentication, self._record)
 		else:
-			self._record.ClientID = self.endpoint.service['BasicHttpBinding_IClientService'].updateClient(self.authentication, self._record)
+			self._record.ClientID = WebService.CLIENT.service['BasicHttpBinding_IClientService'].updateClient(self.authentication, self._record)
 
 		if self._payment_methods is not None:
 			for payment_method in self._payment_methods:
@@ -148,7 +167,7 @@ class Client(WebService):
 
 	def delete(self):
 		if self.id is not None:
-			result = (self.endpoint.service['BasicHttpBinding_IClientService'].deleteClient(self.authentication, WebService.MERCHANT_ID, self.id) == self.id)
+			result = (WebService.CLIENT.service['BasicHttpBinding_IClientService'].deleteClient(self.authentication, WebService.MERCHANT_ID, self.id) == self.id)
 			self._record.ClientID = None
 		return self
 

@@ -20,6 +20,7 @@ def config(merchant_id=None, api_login_id=None, transaction_key=None, agi_passwo
 		else:
 			WebService.CLIENT = suds('https://ws.paymentsgateway.net/Service/v1/Client.wsdl')
 			WebService.TRANSACTION = suds('https://ws.paymentsgateway.net/Service/v1/Transaction.wsdl')
+		WebService.IDVERIFY = suds('https://ws.paymentsgateway.net/idverify/idverifyWS.asmx?wsdl')
 		AccountType = WebService.CLIENT.factory.create('EcAccountType')
 		BankAccount.CHECKING = AccountType['CHECKING']
 		BankAccount.SAVINGS = AccountType['SAVINGS']

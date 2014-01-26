@@ -163,6 +163,7 @@ fortepy.Client.create() returns <fortepy.Client>
 fortepy.Client.retrieve(id) returns <fortepy.Client>
 fortepy.Client().save() returns self
 fortepy.Client().delete() returns self
+fortepy.Client().verify() returns string of xml, see [Forte documentation](http://www.paymentsgateway.com/developerDocumentation/Integration/webservices.aspx) for details
 ```
 
 ### fortepy.Address

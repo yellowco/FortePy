@@ -7,15 +7,15 @@ class WebService(object):
 	MERCHANT_ID = None
 	CLIENT = None
 	TRANSACTION = None
+	IDVERIFY = None
 	
-	def __init__(self, endpoint):
+	def __init__(self):
 		if WebService.API_LOGIN_ID is None:
 			raise Exception("API Login ID is not set")
 		if WebService.TRANSACTION_KEY is None:
 			raise Exception("Transaction key is not set")
 		if WebService.MERCHANT_ID is None:
 			raise Exception("Merchant ID is not set")
-		super(WebService, self).__setattr__('endpoint', endpoint)
 		super(WebService, self).__setattr__('_record', None)
 
 

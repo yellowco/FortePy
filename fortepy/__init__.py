@@ -9,5 +9,6 @@ from .Order import Order
 from .Recurrence import Recurrence
 from .Transaction import Transaction
 from .Config import config
+from .IDVerify import IDVerify
 
 __version__ = '0.1.0'

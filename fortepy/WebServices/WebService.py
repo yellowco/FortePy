@@ -7,11 +7,7 @@ class WebService(object):
 	MERCHANT_ID = None
 	CLIENT = None
 	TRANSACTION = None
-<<<<<<< HEAD
-	IDVERIFY = None
-=======
 	ID_VERIFY = None
->>>>>>> add idverify
 	
 	def __init__(self):
 		if WebService.API_LOGIN_ID is None:

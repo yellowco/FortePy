@@ -4,7 +4,7 @@ Python bindings for the [Forte payment network](http://www.forte.net/).
 
 No longer in development or actively maintained. The functionality provided in the tests work. We would maintain it or develop it further, but Forte didn't want to do business with us. Provided as-is, no guarantees.
 
-[![Build Status](https://travis-ci.org/kevmo314/FortePy.png?branch=master)](https://travis-ci.org/kevmo314/FortePy) [![Coverage Status](https://coveralls.io/repos/kevmo314/FortePy/badge.png)](https://coveralls.io/r/kevmo314/FortePy)
+[![Build Status](https://travis-ci.org/yellowco/FortePy.png?branch=master)](https://travis-ci.org/yellowco/FortePy)
 
 ## Configure
 
